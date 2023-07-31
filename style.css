@@ -46,6 +46,7 @@ body {
     outline: none;
     border-bottom: 3px solid #ae9cff;
     font-size: 16px;
+    border-radius: 7px;
 }
 .search-box button {
     padding: 5px 0;
