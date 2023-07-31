@@ -13,7 +13,7 @@ btn.addEventListener("click", () => {
       console.log(data[0].word);
       console.log(data[0].meanings);
       result.innerHTML = `<div class="word">
-        <h3>${data[0].word}</h3>
+        <h3 id = "wordd">${data[0].word}</h3>
         <button onclick="playSound()">
           <i class="fas fa-volume-up"></i>
         </button>
