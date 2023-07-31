@@ -10,23 +10,37 @@ btn.addEventListener("click", () => {
   fetch(`${url}${inpWord}`)
     .then((response) => response.json())
     .then((data) => {
-        console.log(data[0].word);
-        console.log(data[0].meanings[0].definitions[0].definition)
-        result.innerHTML = `<div class="word">
+      console.log(data[0].word);
+      console.log(data[0].meanings);
+      result.innerHTML = `<div class="word">
         <h3>${data[0].word}</h3>
-        <button>
-         <i class="fas fa-volume-up"></i>
+        <button onclick="playSound()">
+          <i class="fas fa-volume-up"></i>
         </button>
-    </div>
-    <div class="details">
-        <p>pos</p>
-        <p>/Sample</p>
-    </div>
-    <p class="word-meaning">
+      </div>
+      <div class="details">
+        <p>${data[0].meanings[0].partOfSpeech}</p>
+        <p>/${data[0].phonetic}/</p>
+      </div>
+      <p class="word-meaning">
         ${data[0].meanings[0].definitions[0].definition}
-    </p>
-    <p class="word-example">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, necessitatibus.
-    </p>`
+      </p>
+      <p class="word-example">
+        ${data[0].meanings[0].definitions[0].example || ""}
+      </p>`;
+
+      if (data[0].phonetics && data[0].phonetics.length > 0) {
+        sound.setAttribute("src", `https:${data[0].phonetics[0].audio}`);
+        console.log(sound);
+      } else {
+        console.log("No pronunciation audio available.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
     });
 });
+
+function playSound() {
+  sound.play();
+}
